@@ -45,7 +45,7 @@ form {
 }
 
 input:required {
-    background: #fff url(images/req.png) no-repeat 98% center;
+    background: #fff url(images/star.png) no-repeat 98% center;
 }
 
 .insert_form button {margin-left:156px;}

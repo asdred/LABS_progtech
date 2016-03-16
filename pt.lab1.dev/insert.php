@@ -12,7 +12,6 @@
         }
 
         $table = $_POST['t'];
-        echo $table;
             
         $columns = $dbh->query("SELECT column_name FROM information_schema.columns WHERE table_name = '{$table}'");
         $columns->setFetchMode(PDO::FETCH_ASSOC);
@@ -30,18 +29,10 @@
             array_push($placeholders, '?');
         }
 
-        /*
-        echo '<br>';
-        print_r($columns_array);
-        echo '<br>';
-        print_r($values_array);
-        echo '<br>';
-        */
-
         $query = "INSERT INTO " . $table . " (" . implode(', ',$columns_array) . ") VALUES (" . implode(', ',$placeholders) . ");";
 
         $sth = $dbh->prepare($query);  
         $sth->execute($values_array);
 
-        header("Location: http://pt.lab1.dev/table.php?t=" . $table);
+        header("Location: http://pt.lab1.dev/table.php?t=" . $table . "&p=1");
 ?>

@@ -6,15 +6,17 @@
         <link type="text/css" rel="stylesheet" href="css/table.css"/>
         <link type="text/css" rel="stylesheet" href="css/index.css"/>
     </head>
-    <body>
-<?php 
+    <body> 
     
-    echo '<table class="simple-little-table">';
-    echo '<thead>';
-    echo '<tr>';
-
+    <table class="simple-little-table">
+        <thead>
+            <tr>
+                
+    <?php
+                
     // ПОДКЛЮЧЕНИЕ ЧЕРЕЗ PDO, позволяет избежать SQL-Инъекции
     //Данные доступа
+                
     try {
         $user = 'postgres';  
         $pass = 'admin';  
@@ -26,31 +28,52 @@
         die();  
     }
     
+    // Счётчик строк для постраничного вывода
     $row_count = 0;
         
     $table = $_GET['t'];
-    $page = $_GET['p'];
+    $page = $_GET['p']; 
         
-    echo '<script>';
-    echo 'function count(obj) {';
-    echo 'location.assign("http://pt.lab1.dev/form_update.php?t=' . $table . '&i=" + obj.cells[0].innerText);';
-    echo '}';
-    echo '</script>';
+    ?>
+        
+    <script>
+        function count(obj) {
+            location.assign("http://pt.lab1.dev/form_update.php?t=<?php echo $table ?>&i=" + obj.cells[0].innerText);
+        }
+    </script>
 
+    <?php
+    
+    // Просчёт кол-ва страниц
+    
+    $rows_count_query = $dbh->query("SELECT Count(id) FROM {$table} WHERE deleted = false");
+    $rows_count_query->setFetchMode(PDO::FETCH_ASSOC);
+    $rows_count = $rows_count_query->fetch()['count'];
+    $page_count = $rows_count / 5; 
+    
     $columns = $dbh->query("SELECT column_name FROM information_schema.columns WHERE table_name = '{$table}'");
     $columns->setFetchMode(PDO::FETCH_ASSOC);
     
     $columns_array = array();
 
     while($col = $columns->fetch()) {
-        if ($col['column_name'] == 'deleted') continue;
+        //if ($col['column_name'] == 'deleted') continue;
         array_push($columns_array, $col['column_name']);
-        echo "<th>{$col['column_name']}</th>";
+        
+        if (strpos($col['column_name'], 'id') !== false or strpos($col['column_name'], 'deleted') !== false) {
+                echo '<th hidden="true">' . $col['column_name'] . '</th>';
+            } else {
+                echo '<th>' . $col['column_name'] . '</th>';
+            }
     }
+                            
+    ?>
     
-    echo '</tr>';
-    echo '</thead>';
-    echo '<tbody>';
+            </tr>
+        </thead>
+    <tbody>
+        
+    <?php
 
     // отладка
     //echo "SELECT " . implode(', ',$columns_array) . " FROM {$table}";
@@ -60,19 +83,27 @@
   
     while($row = $sth->fetch()) {
         echo '<tr onclick="count(this)">';
-        $row_count++;
+        
         foreach ($columns_array as $column_name) {
-            echo '<td>' . $row[$column_name] . '</td>';
+            if (strpos($column_name, 'id') !== false or strpos($column_name, 'deleted') !== false) {
+                echo '<td hidden="true">' . $row[$column_name] . '</td>';
+            } else {
+                echo '<td>' . $row[$column_name] . '</td>';
+            }
         }
+        
         echo '</tr>';  
     }
 
     // Закрытие соединений
     $dbh = null;
+        
+    ?>
 
-    echo '</tbody>';
-    echo '</table>';
-
+    </tbody>
+    </table>
+        
+    <!--
     /* 
     // open a connection to the database server
     $connection = pg_connect ("host=$host dbname=$db user=$user
@@ -113,24 +144,29 @@
     pg_close($connection);
     
     */
-    echo '<a href="http://pt.lab1.dev/form_insert.php?t=' . $table . '">';
-    echo '<button class="submit" type="submit" name="' . $table . '"> Добавить </button><br>';
-    echo '</a>';
+    -->
     
-    echo '<nav id="table-navigation">';
+        <a href="http://pt.lab1.dev/form_insert.php?t=<?php echo $table ?>">
+            <button class="submit" type="submit" name="<?php echo $table ?>">Добавить</button><br>
+        </a>
+        <nav id="table-navigation">
+        
+    <?php
+    
     if ($page > 1) {    
         echo '<a href="http://pt.lab1.dev/table.php?t=' . $table . '&p=' . ($page - 1) . '">';
         echo '<button class=submit>Назад</button>';
         echo '</a>';
     }
     
-    if ($row_count == 5) {
+    if ($page < $page_count) {
         echo '<a href="http://pt.lab1.dev/table.php?t=' . $table . '&p=' . ($page + 1) . '">';
         echo '<button class=submit>Вперёд</button>';
         echo '</a>';
     }
-    echo '</nav>';
+       
+    ?>
         
-?>
+        </nav>    
     </body>
 </html>

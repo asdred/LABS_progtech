@@ -7,20 +7,21 @@
     </head>
     <body>
         <div id="form">
-            <?php
-            try {
-                $user = 'postgres';  
-                $pass = 'admin';  
-                $host = 'localhost';  
-                $db='cars';  
-                $dbh = new PDO("pgsql:host=$host;dbname=$db", $user, $pass);
-            } catch (PDOException $e) {  
-                echo "Error!: " . $e->getMessage() . "<br/>";  
-                die();  
-            }
-            
-                echo '<form class="insert_form" action="update.php" method="post">';
-                echo '<ul>';
+            <form class="insert_form" action="update.php" method="post">
+                <ul>
+                    
+                <?php
+                    
+                try {
+                    $user = 'postgres';  
+                    $pass = 'admin';  
+                    $host = 'localhost';  
+                    $db='cars';  
+                    $dbh = new PDO("pgsql:host=$host;dbname=$db", $user, $pass);
+                } catch (PDOException $e) {  
+                    echo "Error!: " . $e->getMessage() . "<br/>";  
+                    die();  
+                } 
                 
                 $table = $_GET['t'];
                 $id = $_GET['i'];
@@ -33,12 +34,42 @@
 
                 while($col = $columns->fetch()) {
                     
+                    // Начало не универсального кода
+                    
+                    if($col['column_name'] == 'dealer_id') { 
+                        $dealers = $dbh->query("SELECT id, name FROM dealers WHERE deleted=false");
+                        $dealers->setFetchMode(PDO::FETCH_ASSOC);
+                    }
+                    
+                    
                     if($col['column_name'] == 'id') {
                         echo '<li>';
                         echo '<input type="hidden" name="id" value="' . $id . '">';
                         echo '</li>';
                         continue;
                     } elseif ($col['column_name'] == 'deleted') continue;
+                    else if ($col['column_name'] == 'dealer_id') {
+                        
+                        $selected_dealer_query = $dbh->query("SELECT dealer_id FROM cars WHERE id={$id}");
+                        $selected_dealer_query->setFetchMode(PDO::FETCH_ASSOC);
+                        $selected_dealer_id = $selected_dealer_query->fetch()['dealer_id'];
+                        
+                        echo '<li>';
+                        echo '<label for="' . $col['column_name'] . '">' . $col['column_name'] . '</label>';
+                        echo '<select name="dealer_id">';
+                        while($dealer = $dealers->fetch()) {
+                            if ($dealer['id'] == $selected_dealer_id) {
+                                echo '<option selected value="' . $dealer['id'] . '">' . $dealer['name'] . '</option>'; 
+                            } else {
+                                echo '<option value="' . $dealer['id'] . '">' . $dealer['name'] . '</option>';
+                            }
+                        }
+                        echo '</select>';
+                        echo '</li>';
+                        continue; 
+                    }
+                    
+                    // Конец не универсального кода
                     
                     array_push($columns_array, $col['column_name']);
                     array_push($types_array, $col['data_type']);
@@ -61,42 +92,18 @@
                     echo '<script>';
                     echo "document.getElementById('" . $column_name . "').value = '" . $val[ $column_name ] . "';";
                     echo '</script>';
-                }
-            
-                echo '<li>';
-                echo '<label for="deleted">Deleted?</label>';
-                echo '<input type="checkbox" name="deleted">';
-                echo '</li>';
-                
-                echo '<li>';
-                echo '<button class="submit" type="submit" name="t" value="' . $table . '">Изменить</button>';
-                echo '</li>';
-                
-            
-            
-            ?>
-            <!--
+                }         
+                  
+                // Не универсальный код
+                    
+                ?>
                     <li>
-                        <label for="table">Таблица:</label>
-                        <select id="sel" name="table" onchange="select(this)">
-                            <option value="dealers">Диллеры</option>
-                            <option value="cars">Автомобили</option>
-                        </select>
-                    </li>
-                    <li id="first">
-                        <label for="dealer">Диллер:</label>
-                        <input type="text" name="dealer" placeholder="Renault" required/>
-                        <span class="form_hint">Proper format "Text"</span>
-                    </li>
-                    <li id="second">
-                        <label for="contry">Страна:</label>
-                        <input type="text" name="country" placeholder="France" required/>
-                        <span class="form_hint">Proper format "Text"</span>
+                        <label for="deleted">delete?</label>
+                        <input type="checkbox" name="deleted">
                     </li>
                     <li>
-                        <button class="submit" type="submit" name="add">Добавить</button>
+                        <button class="submit" type="submit" name="t" value="<?php echo $table ?>">Изменить</button>
                     </li>
-            -->
                 </ul>
             </form>
         </div>
