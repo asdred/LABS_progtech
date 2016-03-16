@@ -6,12 +6,16 @@ a {
     text-decoration: none;
 }
 
-#menu {
+#main_menu {
     border-radius: 5px;
     text-align: center;
     margin: 5% auto;
     border: 1px solid black;
     width: 30%;
+}
+
+#menu {
+    border-bottom: 3px solid lightgray;
 }
 
 /* Button Style */
@@ -57,3 +61,18 @@ button.submit:active {
     -ms-box-shadow: 0 0 10px 5px #356b0b inset;
     -o-box-shadow: 0 0 10px 5px #356b0b inset;
 }
+
+button.submit#index {
+    width: 100px;
+}
+
+nav a:last-child button {
+    margin-bottom: 20px;
+}
+
+/*
+body {
+    background: url("http://wallcars.net/data/media/169/Cayenne%20(14)%201920x1200.jpg") 10px 10px;
+    background-size: cover;
+}
+*/

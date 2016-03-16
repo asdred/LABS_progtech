@@ -3,9 +3,15 @@
     <head>
         <title>lab1</title>
         <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="css/index.css"/>
         <link type="text/css" rel="stylesheet" href="css/form.css"/>
     </head>
     <body>
+        <nav id="menu">
+        <a href="http://pt.lab1.dev/?table=<?php echo $_GET['t'] ?>&p=1">
+            <button class="submit">Назад</button>
+        </a>
+        </nav>
         <div id="form">
             <form class="insert_form" action="update.php" method="post">
                 <ul>

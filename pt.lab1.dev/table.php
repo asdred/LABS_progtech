@@ -7,7 +7,11 @@
         <link type="text/css" rel="stylesheet" href="css/index.css"/>
     </head>
     <body> 
-    
+    <nav id="menu">
+        <a href="http://pt.lab1.dev/">
+            <button class="submit">На главную</button>
+        </a>
+    </nav>
     <table class="simple-little-table">
         <thead>
             <tr>

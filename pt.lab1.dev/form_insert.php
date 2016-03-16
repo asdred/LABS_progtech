@@ -7,6 +7,11 @@
         <link type="text/css" rel="stylesheet" href="css/form.css"/>
     </head>
     <body>
+    <nav id="menu">
+    <a href="http://pt.lab1.dev/table.php?t=<?php echo $_GET['t'] ?>&p=1">
+        <button class="submit">Назад</button>
+    </a>
+    </nav>
         <div id="form">
             <form class="insert_form" action="insert.php" method="post">
                 <ul>

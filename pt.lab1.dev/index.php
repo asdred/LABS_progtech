@@ -6,7 +6,8 @@
         <link type="text/css" rel="stylesheet" href="css/index.css"/>
     </head>
     <body>
-        <nav id="menu">
+        <nav id="main_menu">
+        <h3>Таблицы:</h3>
             
         <?php 
         
@@ -19,7 +20,7 @@
             
         while($data = pg_fetch_array($result)) { ?>
             <a href="http://pt.lab1.dev/table.php?t=<?php echo $data['relname'] ?>&p=1" >
-            <button class="submit" type="submit" name="<?php echo $data['relname'] ?>"><?php echo $data['relname'] ?></button><br>
+            <button class="submit" id="index" type="submit" name="<?php echo $data['relname'] ?>"><?php echo $data['relname'] ?></button><br>
             </a>
             
             <?php  

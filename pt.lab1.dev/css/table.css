@@ -1,5 +1,7 @@
 #table-navigation {
     text-align: center;
+    border-bottom: 3px solid lightgray;
+    border-top: 3px solid lightgray;
 }
 
 .simple-little-table {
