@@ -8,7 +8,7 @@
     </head>
     <body>
         <nav id="menu">
-        <a href="http://pt.lab1.dev/?table=<?php echo $_GET['t'] ?>&p=1">
+        <a href="http://pt.lab1.dev/table.php?t=<?php echo $_GET['t'] ?>&p=1">
             <button class="submit">Назад</button>
         </a>
         </nav>

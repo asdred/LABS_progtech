@@ -82,7 +82,7 @@
     // отладка
     //echo "SELECT " . implode(', ',$columns_array) . " FROM {$table}";
     
-    $sth = $dbh->query("SELECT " . implode(', ',$columns_array) . " FROM {$table} WHERE deleted=false LIMIT 5 OFFSET " . (($page * 5) - 5));
+    $sth = $dbh->query("SELECT " . implode(', ',$columns_array) . " FROM {$table} WHERE deleted=false ORDER BY id LIMIT 5 OFFSET " . (($page * 5) - 5));
     $sth->setFetchMode(PDO::FETCH_ASSOC);  
   
     while($row = $sth->fetch()) {
