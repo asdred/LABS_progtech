@@ -1,0 +1,5 @@
+Настройка базы в конфиге app/config/config.php
+Создал К session
+Создал П session
+Создал М user + валидация там
+
