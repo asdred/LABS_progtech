@@ -1,1 +1,0 @@
-<a href="/session/index"><button>Войти</button></a>
