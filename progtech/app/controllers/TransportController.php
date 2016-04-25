@@ -24,6 +24,117 @@ class TransportController extends ControllerBase
 
         $this->view->page = $paginator->getPaginate();
     }
+    
+    public function editAction($id)
+    {
+
+        if (!$this->request->isPost()) {
+
+            $transport = Transportation::findFirstById($id);
+            if (!$transport) {
+                $this->flash->error("Перевозка не найдена");
+                return $this->forward("transport/index");
+            }
+
+            $this->view->form = new TransportForm($transport, array('edit' => true));
+        }
+    }
+    
+    public function saveAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->forward("transport/index");
+        }
+
+        $id = $this->request->getPost("id", "int");
+        $transport = Transportation::findFirstById($id);
+        
+        if (!$transport) {
+            $this->flash->error("Перевозка не найдена");
+            return $this->forward("transport/index");
+        }
+
+        $form = new TransportForm;
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $transport)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('transport/new');
+        }
+        
+
+        if ($transport->save() == false) {
+            foreach ($transport->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('transport/new');
+        }
+
+        $form->clear();
+
+        $this->flash->success("Перевозка успешно изменёна");
+        return $this->forward("transport/index");
+    }
+    
+    public function newAction()
+    {
+        $this->view->form = new TransportForm(null, array('edit' => true));
+    }
+    
+    public function createAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->forward("transport/index");
+        }
+
+        $form = new TransportForm;
+        $company = new Transportation();
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $company)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('transport/new');
+        }
+
+        if ($company->save() == false) {
+            foreach ($company->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('transport/new');
+        }
+
+        $form->clear();
+
+        $this->flash->success("Перевозка успешно создана");
+        return $this->forward("transport/index");
+    }
+    
+    
+    public function deleteAction($id)
+    {
+        $transport = Transportation::findFirstById($id);
+        
+        if (!$transport) {
+            $this->flash->error("Перевозка не найден");
+            return $this->forward("transport/index");
+        }
+        
+        $transport->delete++;
+
+        if ($transport->save() == false) {
+            foreach ($transport->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('transport/new');
+        }
+
+        $this->flash->success("Перевозка успешно удалён");
+        return $this->forward("transport/index");
+    }
 
     /**
      * Edit the active user profile

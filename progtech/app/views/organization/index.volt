@@ -1,4 +1,11 @@
-<h2>Организации</h2>
+<div>
+    <div>
+        <h2>Организации</h2>
+    </div>
+    <div>
+        {{ link_to("organization/new", "Создать", "class": "btn btn-primary") }}
+    </div>
+</div>
 
 {% for organizations in page.items %}
 {% if loop.first %}
@@ -11,6 +18,7 @@
         </tr>
     </thead>
 {% endif %}
+{% if organizations.delete == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ organizations.id }}</td>
@@ -20,6 +28,7 @@
             <td width="7%">{{ link_to("organization/delete/" ~ organizations.id, '<i class="glyphicon glyphicon-remove"></i> Удалить', "class": "btn btn-default") }}</td>
         </tr>
     </tbody>
+{% endif %}
 {% if loop.last %}
     <tbody>
         <tr>

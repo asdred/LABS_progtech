@@ -1,4 +1,11 @@
-<h2>Водители</h2>
+<div>
+    <div>
+        <h2>Водители</h2>
+    </div>
+    <div>
+        {{ link_to("driver/new", "Создать", "class": "btn btn-primary") }}
+    </div>
+</div>
 
 {% for drivers in page.items %}
 {% if loop.first %}
@@ -12,6 +19,7 @@
         </tr>
     </thead>
 {% endif %}
+{% if drivers.delete == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ drivers.id }}</td>
@@ -22,6 +30,7 @@
             <td width="7%">{{ link_to("driver/delete/" ~ drivers.id, '<i class="glyphicon glyphicon-remove"></i> Удалить', "class": "btn btn-default") }}</td>
         </tr>
     </tbody>
+{% endif %}
 {% if loop.last %}
     <tbody>
         <tr>

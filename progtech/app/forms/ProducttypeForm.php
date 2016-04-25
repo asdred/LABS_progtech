@@ -23,7 +23,7 @@ class ProducttypeForm extends Form
         }
 
         $name = new Text("name");
-        $name->setLabel("И.Фамилия");
+        $name->setLabel("Название");
         $name->setFilters(array('striptags', 'string'));
         $name->addValidators(array(
             new PresenceOf(array(

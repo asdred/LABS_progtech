@@ -39,4 +39,99 @@ class OwnerController extends ControllerBase
             $this->view->form = new OwnerForm($owner, array('edit' => true));
         }
     }
+    
+    public function saveAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->forward("owner/index");
+        }
+
+        $id = $this->request->getPost("id", "int");
+        $owner = Owner::findFirstById($id);
+        
+        if (!$owner) {
+            $this->flash->error("Владелец не найден");
+            return $this->forward("owner/index");
+        }
+
+        $form = new OwnerForm;
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $owner)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('owner/new');
+        }
+        
+
+        if ($owner->save() == false) {
+            foreach ($owner->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('owner/new');
+        }
+
+        $form->clear();
+
+        $this->flash->success("Владелец успешно изменён");
+        return $this->forward("owner/index");
+    }
+    
+    public function newAction()
+    {
+        $this->view->form = new OwnerForm(null, array('edit' => true));
+    }
+    
+    public function createAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->forward("owner/index");
+        }
+
+        $form = new OwnerForm;
+        $company = new Owner();
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $company)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('owner/new');
+        }
+
+        if ($company->save() == false) {
+            foreach ($company->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('owner/new');
+        }
+
+        $form->clear();
+
+        $this->flash->success("Владелец успешно создан");
+        return $this->forward("owner/index");
+    }
+    
+    public function deleteAction($id)
+    {
+        $owner = Owner::findFirstById($id);
+        
+        if (!$owner) {
+            $this->flash->error("Владелец не найден");
+            return $this->forward("owner/index");
+        }
+        
+        $owner->delete++;
+
+        if ($owner->save() == false) {
+            foreach ($owner->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('owner/new');
+        }
+
+        $this->flash->success("Владелец успешно удалён");
+        return $this->forward("owner/index");
+    }
 }

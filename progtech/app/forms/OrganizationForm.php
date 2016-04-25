@@ -23,7 +23,7 @@ class OrganizationForm extends Form
         }
 
         $name = new Text("name");
-        $name->setLabel("И.Фамилия");
+        $name->setLabel("Название");
         $name->setFilters(array('striptags', 'string'));
         $name->addValidators(array(
             new PresenceOf(array(
@@ -31,6 +31,16 @@ class OrganizationForm extends Form
             ))
         ));
         $this->add($name);
+        
+        $address = new Text("address");
+        $address->setLabel("Адрес");
+        $address->setFilters(array('striptags', 'string'));
+        $address->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'address is required'
+            ))
+        ));
+        $this->add($address);
     }
 
 }

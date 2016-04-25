@@ -8,6 +8,8 @@ class Dealer extends Model
 
     public $name;
     
+    public $delete;
+    
     // Название таблицы
     public function getSource()
     {

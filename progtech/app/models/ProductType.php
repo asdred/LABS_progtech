@@ -7,6 +7,8 @@ class ProductType extends Model
     public $id;
 
     public $name;
+     
+    public $delete;
     
     // Название таблицы
     public function getSource()

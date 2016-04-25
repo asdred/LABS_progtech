@@ -1,4 +1,11 @@
-<h2>Перевозки</h2>
+<div>
+    <div>
+        <h2>Перевозки</h2>
+    </div>
+    <div>
+        {{ link_to("transport/new", "Создать", "class": "btn btn-primary") }}
+    </div>
+</div>
 
 {% for transport in page.items %}
 {% if loop.first %}
@@ -13,6 +20,7 @@
         </tr>
     </thead>
 {% endif %}
+{% if transport.delete == 0 %}
     <tbody>
         <tr>
             <td>{{ transport.id }}</td>
@@ -24,6 +32,7 @@
             <td width="7%">{{ link_to("transport/delete/" ~ transport.id, '<i class="glyphicon glyphicon-remove"></i> Удалить', "class": "btn btn-default") }}</td>
         </tr>
     </tbody>
+{% endif %}
 {% if loop.last %}
     <tbody>
         <tr>

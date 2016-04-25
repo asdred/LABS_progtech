@@ -31,6 +31,26 @@ class DriverForm extends Form
             ))
         ));
         $this->add($name);
+        
+        $experience = new Text("experience");
+        $experience->setLabel("Стаж");
+        $experience->setFilters(array('striptags', 'int'));
+        $experience->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'experience is required'
+            ))
+        ));
+        $this->add($experience);
+        
+        $salary = new Text("salary");
+        $salary->setLabel("Зарплата");
+        $salary->setFilters(array('striptags', 'trim', 'int'));
+        $salary->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'salary is required'
+            ))
+        ));
+        $this->add($salary);
     }
 
 }

@@ -3,6 +3,7 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
 
@@ -22,8 +23,17 @@ class StoreForm extends Form
             $this->add(new Hidden("id"));
         }
 
+        $owner = new Select('owner_id', Owner::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $owner->setLabel('Владелец');
+        $this->add($owner);
+        
         $name = new Text("name");
-        $name->setLabel("И.Фамилия");
+        $name->setLabel("Название");
         $name->setFilters(array('striptags', 'string'));
         $name->addValidators(array(
             new PresenceOf(array(
@@ -32,5 +42,4 @@ class StoreForm extends Form
         ));
         $this->add($name);
     }
-
 }

@@ -3,6 +3,7 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
 
@@ -22,15 +23,57 @@ class CarForm extends Form
             $this->add(new Hidden("id"));
         }
 
-        $name = new Text("name");
-        $name->setLabel("И.Фамилия");
-        $name->setFilters(array('striptags', 'string'));
-        $name->addValidators(array(
+        // select - Диллер
+        $dealer = new Select('dealer_id', Dealer::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $dealer->setLabel('Диллер');
+        $this->add($dealer);
+        
+        // select - Водитель
+        $driver = new Select('driver_id', Driver::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $driver->setLabel('Водитель');
+        $this->add($driver);
+        
+        // select - Владелец
+        $owner = new Select('owner_id', Owner::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $owner->setLabel('Владелец');
+        $this->add($owner);
+        
+        // text - Модель
+        $model = new Text("model");
+        $model->setLabel("Модель");
+        $model->setFilters(array('striptags', 'string'));
+        $model->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Name is required'
+                'message' => 'model is required'
             ))
         ));
-        $this->add($name);
+        $this->add($model);
+        
+        // text - capacity
+        $capacity = new Text("capacity");
+        $capacity->setLabel("Грузоподъмность");
+        $capacity->setFilters(array('striptags', 'trim', 'int'));
+        $capacity->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'capacity is required'
+            ))
+        ));
+        $this->add($capacity);
     }
 
 }

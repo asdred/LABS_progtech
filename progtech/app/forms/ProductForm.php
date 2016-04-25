@@ -3,6 +3,7 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
 
@@ -23,7 +24,7 @@ class ProductForm extends Form
         }
 
         $name = new Text("name");
-        $name->setLabel("И.Фамилия");
+        $name->setLabel("Название");
         $name->setFilters(array('striptags', 'string'));
         $name->addValidators(array(
             new PresenceOf(array(
@@ -31,6 +32,27 @@ class ProductForm extends Form
             ))
         ));
         $this->add($name);
+        
+        $weight = new Text("weight");
+        $weight->setLabel("Масса 1 куба в кг");
+        $weight->setFilters(array('striptags', 'string'));
+        $weight->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'weight is required'
+            ))
+        ));
+        $this->add($weight);
+        
+        $producttype = new Select('type_id', ProductType::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $producttype->setLabel('Тип продукта');
+        $this->add($producttype);
+        
+        
     }
 
 }

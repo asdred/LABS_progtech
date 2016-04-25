@@ -13,6 +13,8 @@ class Transportation extends Model
     public $store_id;
 
     public $date;
+     
+    public $delete;
     
     // Название таблицы
     public function getSource()

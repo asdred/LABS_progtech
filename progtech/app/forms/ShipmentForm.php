@@ -3,6 +3,7 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
 
@@ -22,15 +23,32 @@ class ShipmentForm extends Form
             $this->add(new Hidden("id"));
         }
 
-        $name = new Text("name");
-        $name->setLabel("И.Фамилия");
-        $name->setFilters(array('striptags', 'string'));
-        $name->addValidators(array(
+        $product = new Select('product_id', Product::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $product->setLabel('Продукт');
+        $this->add($product);
+        
+        $transportation = new Select('transportation_id', Transportation::find(), array(
+            'using'      => array('id', 'id'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $transportation->setLabel('Номер перевозки');
+        $this->add($transportation);
+        
+        $amount = new Text("amount");
+        $amount->setLabel("Количество");
+        $amount->setFilters(array('striptags', 'trim', 'int'));
+        $amount->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Name is required'
+                'message' => 'amount is required'
             ))
         ));
-        $this->add($name);
+        $this->add($amount);
     }
-
 }

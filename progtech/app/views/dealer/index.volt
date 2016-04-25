@@ -1,4 +1,11 @@
-<h2>Диллеры</h2>
+<div>
+    <div>
+        <h2>Диллеры</h2>
+    </div>
+    <div>
+        {{ link_to("dealer/new", "Создать", "class": "btn btn-primary") }}
+    </div>
+</div>
 
 {% for dealers in page.items %}
 {% if loop.first %}
@@ -10,6 +17,7 @@
         </tr>
     </thead>
 {% endif %}
+{% if dealers.delete == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ dealers.id }}</td>
@@ -18,6 +26,7 @@
             <td width="7%">{{ link_to("dealer/delete/" ~ dealers.id, '<i class="glyphicon glyphicon-remove"></i> Удалить', "class": "btn btn-default") }}</td>
         </tr>
     </tbody>
+{% endif %}
 {% if loop.last %}
     <tbody>
         <tr>

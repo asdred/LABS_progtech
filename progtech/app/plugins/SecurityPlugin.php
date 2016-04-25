@@ -47,16 +47,16 @@ class SecurityPlugin extends Plugin
 
 			//Private area resources
 			$privateResources = array(
-				'transport'   => array('index', 'profile', 'edit'),
-                'car'         => array('index', 'edit'),
-                'dealer'      => array('index', 'edit'),
-                'driver'      => array('index', 'edit'),
-                'organization'=> array('index', 'edit'),
-                'owner'       => array('index', 'edit'),
-                'product'     => array('index', 'edit'),
-                'producttype' => array('index', 'edit'),
-                'shipment'    => array('index', 'edit'),
-                'store'       => array('index', 'edit'),
+				'transport'   => array('index', 'edit', 'save', 'new', 'create', 'delete', 'profile'),
+                'car'         => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'dealer'      => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'driver'      => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'organization'=> array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'owner'       => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'product'     => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'producttype' => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'shipment'    => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'store'       => array('index', 'edit', 'save', 'new', 'create', 'delete'),
                 
 			);
 			foreach ($privateResources as $resource => $actions) {

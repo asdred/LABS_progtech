@@ -16,6 +16,8 @@ class Car extends Model
 
     public $capacity;
     
+    public $delete;
+    
     // Название таблицы
     public function getSource()
     {

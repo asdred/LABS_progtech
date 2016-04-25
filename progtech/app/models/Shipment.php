@@ -11,6 +11,8 @@ class Shipment extends Model
     public $transportation_id;
     
     public $amount;
+     
+    public $delete;
     
     // Название таблицы
     public function getSource()

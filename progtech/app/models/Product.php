@@ -11,6 +11,8 @@ class Product extends Model
     public $weight;
     
     public $type_id;
+     
+    public $delete;
     
     // Название таблицы
     public function getSource()

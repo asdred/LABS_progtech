@@ -2,6 +2,8 @@
 
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Date;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
@@ -21,16 +23,36 @@ class TransportForm extends Form
         } else {
             $this->add(new Hidden("id"));
         }
-
-        $name = new Text("name");
-        $name->setLabel("И.Фамилия");
-        $name->setFilters(array('striptags', 'string'));
-        $name->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'Name is required'
-            ))
+        
+        $car = new Select('car_id', Car::find(), array(
+            'using'      => array('id', 'model'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
         ));
-        $this->add($name);
-    }
+        $car->setLabel('Автомобиль');
+        $this->add($car);
+        
+        $organization = new Select('organization_id', Organization::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $organization->setLabel('Организация');
+        $this->add($organization);
+        
+        $store = new Select('store_id', Store::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $store->setLabel('Склад');
+        $this->add($store);
 
+        $date = new Date('date');
+        $date->setLabel("Дата");
+        $this->add($date);
+    }
 }

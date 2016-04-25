@@ -11,6 +11,8 @@ class Driver extends Model
     public $experience;
     
     public $salary;
+     
+    public $delete;
     
     // Название таблицы
     public function getSource()

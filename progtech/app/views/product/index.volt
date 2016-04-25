@@ -1,4 +1,11 @@
-<h2>Товары</h2>
+<div>
+    <div>
+        <h2>Товары</h2>
+    </div>
+    <div>
+        {{ link_to("product/new", "Создать", "class": "btn btn-primary") }}
+    </div>
+</div>
 
 {% for products in page.items %}
 {% if loop.first %}
@@ -12,6 +19,7 @@
         </tr>
     </thead>
 {% endif %}
+{% if products.delete == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ products.id }}</td>
@@ -22,6 +30,7 @@
             <td width="7%">{{ link_to("product/delete/" ~ products.id, '<i class="glyphicon glyphicon-remove"></i> Удалить', "class": "btn btn-default") }}</td>
         </tr>
     </tbody>
+{% endif %}
 {% if loop.last %}
     <tbody>
         <tr>

@@ -9,6 +9,8 @@ class Organization extends Model
     public $name;
     
     public $address;
+     
+    public $delete;
     
     // Название таблицы
     public function getSource()
