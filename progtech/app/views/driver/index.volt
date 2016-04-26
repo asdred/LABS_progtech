@@ -19,7 +19,7 @@
         </tr>
     </thead>
 {% endif %}
-{% if drivers.delete == 0 %}
+{% if drivers.del == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ drivers.id }}</td>

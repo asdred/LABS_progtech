@@ -12,7 +12,7 @@ class Shipment extends Model
     
     public $amount;
      
-    public $delete;
+    public $del;
     
     // Название таблицы
     public function getSource()

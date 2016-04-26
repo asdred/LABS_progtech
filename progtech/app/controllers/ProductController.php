@@ -6,6 +6,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class ProductController extends ControllerBase
 {
+    private $cascade = false;
+    
     public function initialize()
     {
         $this->tag->setTitle('Товары');
@@ -15,6 +17,17 @@ class ProductController extends ControllerBase
     public function indexAction($numberPage = 1)
     {
         $products = Product::find();
+        
+        // Каскадное обновление
+        if ($cascade) {
+            foreach($products as $product) {
+            if ($product->producttype->del == 1) {
+                $product->del = 1;
+                $product->save();
+                }
+            }
+            $cascade = false;
+        }
         
         $paginator = new Paginator(array(
             "data"  => $products,
@@ -122,7 +135,7 @@ class ProductController extends ControllerBase
             return $this->forward("product/index");
         }
         
-        $product->delete++;
+        $product->del = 1;
 
         if ($product->save() == false) {
             foreach ($product->getMessages() as $message) {
@@ -131,6 +144,7 @@ class ProductController extends ControllerBase
             return $this->forward('product/new');
         }
 
+        $cascade = true;
         $this->flash->success("Товар успешно удалён");
         return $this->forward("product/index");
     }

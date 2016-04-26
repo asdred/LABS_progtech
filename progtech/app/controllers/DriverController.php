@@ -122,7 +122,7 @@ class DriverController extends ControllerBase
             return $this->forward("driver/index");
         }
         
-        $driver->delete++;
+        $driver->del = 1;
 
         if ($driver->save() == false) {
             foreach ($driver->getMessages() as $message) {

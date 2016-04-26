@@ -6,6 +6,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class StoreController extends ControllerBase
 {
+    private $cascade = false;
+    
     public function initialize()
     {
         $this->tag->setTitle('Склады');
@@ -15,6 +17,17 @@ class StoreController extends ControllerBase
     public function indexAction($numberPage = 1)
     {
         $stores = Store::find();
+        
+        // Каскадное обновление
+        if ($cascade) {
+            foreach($stores as $store) {
+            if ($store->owner->del == 1) {
+                $store->del = 1;
+                $store->save();
+                }
+            }
+            $cascade = false;
+        }
         
         $paginator = new Paginator(array(
             "data"  => $stores,
@@ -122,7 +135,7 @@ class StoreController extends ControllerBase
             return $this->forward("store/index");
         }
         
-        $store->delete++;
+        $store->del = 1;
 
         if ($store->save() == false) {
             foreach ($store->getMessages() as $message) {
@@ -131,6 +144,7 @@ class StoreController extends ControllerBase
             return $this->forward('store/new');
         }
 
+        $cascade = true;
         $this->flash->success("Склад успешно удалён");
         return $this->forward("store/index");
     }

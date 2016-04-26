@@ -17,7 +17,7 @@
         </tr>
     </thead>
 {% endif %}
-{% if owners.delete == 0 %}
+{% if owners.del == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ owners.id }}</td>

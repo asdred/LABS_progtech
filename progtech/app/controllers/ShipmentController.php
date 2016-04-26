@@ -6,6 +6,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class ShipmentController extends ControllerBase
 {
+    private $cascade = false;
+    
     public function initialize()
     {
         $this->tag->setTitle('Грузы');
@@ -15,6 +17,17 @@ class ShipmentController extends ControllerBase
     public function indexAction($numberPage = 1)
     {
         $shipments = Shipment::find();
+        
+        // Каскадное обновление
+        if ($cascade) {
+            foreach($shipments as $shipment) {
+            if ($shipment->product->del == 1 or $shipment->transportation->del == 1) {
+                $shipment->del = 1;
+                $shipment->save();
+                }
+            }
+            $cascade = false;
+        }
         
         $paginator = new Paginator(array(
             "data"  => $shipments,
@@ -122,7 +135,7 @@ class ShipmentController extends ControllerBase
             return $this->forward("shipment/index");
         }
         
-        $shipment->delete++;
+        $shipment->del = 1;
 
         if ($shipment->save() == false) {
             foreach ($shipment->getMessages() as $message) {
@@ -131,6 +144,7 @@ class ShipmentController extends ControllerBase
             return $this->forward('shipment/new');
         }
 
+        $cascade = true;
         $this->flash->success("Груз успешно удалён");
         return $this->forward("shipment/index");
     }

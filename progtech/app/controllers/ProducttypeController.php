@@ -122,7 +122,7 @@ class ProducttypeController extends ControllerBase
             return $this->forward("producttype/index");
         }
         
-        $producttype->delete++;
+        $producttype->del = 1;
 
         if ($producttype->save() == false) {
             foreach ($producttype->getMessages() as $message) {

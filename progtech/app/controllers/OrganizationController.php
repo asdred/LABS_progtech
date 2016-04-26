@@ -122,7 +122,7 @@ class OrganizationController extends ControllerBase
             return $this->forward("organization/index");
         }
         
-        $organization->delete++;
+        $organization->del = 1;
 
         if ($organization->save() == false) {
             foreach ($organization->getMessages() as $message) {

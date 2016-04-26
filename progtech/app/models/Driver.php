@@ -12,7 +12,7 @@ class Driver extends Model
     
     public $salary;
      
-    public $delete;
+    public $del;
     
     // Название таблицы
     public function getSource()

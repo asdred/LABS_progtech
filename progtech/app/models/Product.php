@@ -12,7 +12,7 @@ class Product extends Model
     
     public $type_id;
      
-    public $delete;
+    public $del;
     
     // Название таблицы
     public function getSource()

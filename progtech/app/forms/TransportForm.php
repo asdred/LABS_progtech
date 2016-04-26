@@ -24,7 +24,7 @@ class TransportForm extends Form
             $this->add(new Hidden("id"));
         }
         
-        $car = new Select('car_id', Car::find(), array(
+        $car = new Select('car_id', Car::find("del = 0"), array(
             'using'      => array('id', 'model'),
             'useEmpty'   => true,
             'emptyText'  => '...',
@@ -33,7 +33,7 @@ class TransportForm extends Form
         $car->setLabel('Автомобиль');
         $this->add($car);
         
-        $organization = new Select('organization_id', Organization::find(), array(
+        $organization = new Select('organization_id', Organization::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',
@@ -42,7 +42,7 @@ class TransportForm extends Form
         $organization->setLabel('Организация');
         $this->add($organization);
         
-        $store = new Select('store_id', Store::find(), array(
+        $store = new Select('store_id', Store::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',

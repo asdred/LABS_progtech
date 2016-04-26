@@ -23,7 +23,7 @@ class ShipmentForm extends Form
             $this->add(new Hidden("id"));
         }
 
-        $product = new Select('product_id', Product::find(), array(
+        $product = new Select('product_id', Product::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',
@@ -32,7 +32,7 @@ class ShipmentForm extends Form
         $product->setLabel('Продукт');
         $this->add($product);
         
-        $transportation = new Select('transportation_id', Transportation::find(), array(
+        $transportation = new Select('transportation_id', Transportation::find("del = 0"), array(
             'using'      => array('id', 'id'),
             'useEmpty'   => true,
             'emptyText'  => '...',

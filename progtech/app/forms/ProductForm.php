@@ -43,7 +43,7 @@ class ProductForm extends Form
         ));
         $this->add($weight);
         
-        $producttype = new Select('type_id', ProductType::find(), array(
+        $producttype = new Select('type_id', ProductType::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',

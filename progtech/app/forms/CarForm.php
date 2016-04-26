@@ -24,7 +24,7 @@ class CarForm extends Form
         }
 
         // select - Диллер
-        $dealer = new Select('dealer_id', Dealer::find(), array(
+        $dealer = new Select('dealer_id', Dealer::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',
@@ -34,7 +34,7 @@ class CarForm extends Form
         $this->add($dealer);
         
         // select - Водитель
-        $driver = new Select('driver_id', Driver::find(), array(
+        $driver = new Select('driver_id', Driver::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',
@@ -44,7 +44,7 @@ class CarForm extends Form
         $this->add($driver);
         
         // select - Владелец
-        $owner = new Select('owner_id', Owner::find(), array(
+        $owner = new Select('owner_id', Owner::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',

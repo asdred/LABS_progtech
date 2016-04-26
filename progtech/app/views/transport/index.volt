@@ -20,7 +20,7 @@
         </tr>
     </thead>
 {% endif %}
-{% if transport.delete == 0 %}
+{% if transport.del == 0 %}
     <tbody>
         <tr>
             <td>{{ transport.id }}</td>

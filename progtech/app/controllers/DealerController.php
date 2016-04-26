@@ -122,7 +122,7 @@ class DealerController extends ControllerBase
             return $this->forward("dealer/index");
         }
         
-        $dealer->delete++;
+        $dealer->del = 1;
 
         if ($dealer->save() == false) {
             foreach ($dealer->getMessages() as $message) {

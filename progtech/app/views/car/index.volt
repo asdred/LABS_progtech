@@ -21,7 +21,7 @@
         </tr>
     </thead>
 {% endif %}
-{% if cars.delete == 0 %}
+{% if cars.del == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ cars.id }}</td>

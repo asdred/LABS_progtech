@@ -17,7 +17,7 @@
         </tr>
     </thead>
 {% endif %}
-{% if producttypes.delete == 0 %}
+{% if producttypes.del == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ producttypes.id }}</td>

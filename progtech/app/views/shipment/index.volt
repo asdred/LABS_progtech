@@ -19,7 +19,7 @@
         </tr>
     </thead>
 {% endif %}
-{% if shipments.delete == 0 %}
+{% if shipments.del == 0 %}
     <tbody>
         <tr>
             <td class="hidden">{{ shipments.id }}</td>

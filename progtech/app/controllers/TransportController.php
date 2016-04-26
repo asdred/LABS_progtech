@@ -6,6 +6,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class TransportController extends ControllerBase
 {
+    private $cascade = false;
+    
     public function initialize()
     {
         $this->tag->setTitle('Управление перевозками');
@@ -14,10 +16,21 @@ class TransportController extends ControllerBase
 
     public function indexAction($numberPage = 1)
     {
-        $transportations = Transportation::find();
+        $transports = Transportation::find();
+        
+        // Каскадное обновление
+        if ($cascade) {
+            foreach($transports as $transport) {
+                if ($transport->car->del == 1 or $transport->organization->del == 1 or $transport->store->del == 1) {
+                    $transport->del = 1;
+                    $transport->save();
+                }
+            }
+            $cascade = false;
+        }
         
         $paginator = new Paginator(array(
-            "data"  => $transportations,
+            "data"  => $transports,
             "limit" => 10,
             "page"  => $numberPage
         ));
@@ -123,7 +136,7 @@ class TransportController extends ControllerBase
             return $this->forward("transport/index");
         }
         
-        $transport->delete++;
+        $transport->del = 1;
 
         if ($transport->save() == false) {
             foreach ($transport->getMessages() as $message) {
@@ -132,6 +145,7 @@ class TransportController extends ControllerBase
             return $this->forward('transport/new');
         }
 
+        $cascade = true;
         $this->flash->success("Перевозка успешно удалён");
         return $this->forward("transport/index");
     }

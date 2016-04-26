@@ -6,6 +6,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class CarController extends ControllerBase
 {
+    private $cascade = false;
+    
     public function initialize()
     {
         $this->tag->setTitle('Автомобили');
@@ -15,6 +17,17 @@ class CarController extends ControllerBase
     public function indexAction($numberPage = 1)
     {
         $cars = Car::find();
+        
+        // Каскадное обновление
+        if ($cascade) {
+            foreach($cars as $car) {
+            if ($car->dealer->del == 1 or $car->driver->del == 1 or $car->owner->del == 1) {
+                $car->del = 1;
+                $car->save();
+                }
+            }
+            $cascade = false;
+        }
         
         $paginator = new Paginator(array(
             "data"  => $cars,
@@ -122,7 +135,7 @@ class CarController extends ControllerBase
             return $this->forward("car/index");
         }
         
-        $car->delete++;
+        $car->del = 1;
 
         if ($car->save() == false) {
             foreach ($car->getMessages() as $message) {
@@ -131,6 +144,7 @@ class CarController extends ControllerBase
             return $this->forward('car/new');
         }
 
+        $cascade = true;
         $this->flash->success("Автомобиль успешно удалён");
         return $this->forward("car/index");
     }

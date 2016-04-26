@@ -122,7 +122,7 @@ class OwnerController extends ControllerBase
             return $this->forward("owner/index");
         }
         
-        $owner->delete++;
+        $owner->del = 1;
 
         if ($owner->save() == false) {
             foreach ($owner->getMessages() as $message) {

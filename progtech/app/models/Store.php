@@ -10,7 +10,7 @@ class Store extends Model
     
     public $owner_id;
      
-    public $delete;
+    public $del;
     
     // Название таблицы
     public function getSource()

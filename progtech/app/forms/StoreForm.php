@@ -23,7 +23,7 @@ class StoreForm extends Form
             $this->add(new Hidden("id"));
         }
 
-        $owner = new Select('owner_id', Owner::find(), array(
+        $owner = new Select('owner_id', Owner::find("del = 0"), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',

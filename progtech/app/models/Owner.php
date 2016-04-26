@@ -8,7 +8,7 @@ class Owner extends Model
 
     public $name;
      
-    public $delete;
+    public $del;
     
     // Название таблицы
     public function getSource()
