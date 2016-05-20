@@ -1,15 +1,24 @@
 <div>
     <div>
-        <h2>Перевозки</h2>
+        <h2>Перевозки {{ status }}</h2>
     </div>
     <div>
+        <div style="text-align: left">
+            {{ form("transport/index") }}
+                <input type="radio" name="interval" value="year">За последний год</inpu><br>
+                <input type="radio" name="interval" value="month">За последний месяц</inpu><br>
+                <input type="radio" name="interval" value="week">За последний неделю</inpu><br>
+                <input type="radio" name="interval" value="day">За последний день</inpu><br>
+                {{ submit_button("Фильтр", "class": "btn btn-primary") }}
+            </form>
+        </div>
         {{ link_to("transport/new", "Создать", "class": "btn btn-primary") }}
     </div>
 </div>
 
 {% for transport in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" id="table-info" align="center">
     <thead>
         <tr>
             <th>Номер</th>
@@ -17,6 +26,7 @@
             <th>Организация</th>
             <th>Склад</th>
             <th>Дата</th>
+            <th colspan="2"></th>
         </tr>
     </thead>
 {% endif %}

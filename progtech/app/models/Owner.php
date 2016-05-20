@@ -24,5 +24,4 @@ class Owner extends Model
         // Owner.id (один) <-> (много) Car.owner_id
         $this->hasMany("id", "Car", "owner_id");
     }
-
 }

@@ -14,9 +14,21 @@ class CarController extends ControllerBase
         parent::initialize();
     }
 
-    public function indexAction($numberPage = 1)
+    public function indexAction($numberPage = 1, $capacity = null)
     {
         $cars = Car::find();
+        
+        $capacity = $this->request->getPost("capacity");
+        
+        if (!$capacity) {
+            $cars = Car::find();
+        } elseif ($capacity == "max") {
+            $cars = Car::mostCapacity();
+            $this->view->status = "наиболее грузоподъёмные";
+        } elseif ($capacity == "min") {
+            $cars = Car::leastCapacity();
+            $this->view->status = "наименее грузоподъёмные";
+        }
         
         // Каскадное обновление
         if ($cascade) {

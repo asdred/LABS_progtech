@@ -28,5 +28,23 @@ class Product extends Model
         // Product.id (один) <-> (много) Shipment.product_id
         $this->hasMany("id", "Shipment", "product_id");
     }
+    
+    public function mostWeight()
+    {   
+        $query = $this->modelsManager->createQuery("SELECT * FROM Product WHERE Product.weight IN (SELECT Max(Product.weight) FROM Product WHERE del = 0)");
+        
+        $cars  = $query->execute();
+        
+        return $cars;
+    }
+    
+    public function leastWeight()
+    {
+        $query = $this->modelsManager->createQuery("SELECT * FROM Product WHERE Product.weight IN (SELECT Min(Product.weight) FROM Product WHERE del = 0)");
+        
+        $cars  = $query->execute();
+        
+        return $cars;
+    }
 
 }

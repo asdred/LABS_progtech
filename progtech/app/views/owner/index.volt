@@ -1,19 +1,18 @@
 <div>
-    <div>
-        <h2>Владельцы</h2>
-    </div>
-    <div>
-        {{ link_to("owner/new", "Создать", "class": "btn btn-primary") }}
-    </div>
+    <h2>Владельцы</h2>
+</div>
+<div>
+    {{ link_to("owner/new", "Создать", "class": "btn btn-primary") }}
 </div>
 
 {% for owners in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" id="table-info" align="center">
     <thead>
         <tr>
             <th class="hidden">id</th>
             <th>И.Фамилия</th>
+            <th colspan="2"></th>
         </tr>
     </thead>
 {% endif %}
@@ -42,6 +41,7 @@
         </tr>
     <tbody>
 </table>
+{{ link_to("owner/export", "Экспорт", "class": "btn btn-primary") }}
 {% endif %}
 {% else %}
     No companies are recorded

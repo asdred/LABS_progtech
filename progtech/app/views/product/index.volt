@@ -1,21 +1,29 @@
 <div>
     <div>
-        <h2>Товары</h2>
+        <h2>Товары {{ status }}</h2>
     </div>
     <div>
+        <div style="text-align: left">
+            {{ form("product/index") }}
+                <input type="radio" name="filter" value="max">Наибольший вес</inpu><br>
+                <input type="radio" name="filter" value="min">Наименьший вес</inpu><br>
+                {{ submit_button("Фильтр", "class": "btn btn-primary") }}
+            </form>
+        </div>
         {{ link_to("product/new", "Создать", "class": "btn btn-primary") }}
     </div>
 </div>
 
 {% for products in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" id="table-info" align="center">
     <thead>
         <tr>
             <th class="hidden">id</th>
             <th>Название</th>
             <th>Масса 1 м^3 (кг)</th>
             <th>Тип</th>
+            <th colspan="2"></th>
         </tr>
     </thead>
 {% endif %}

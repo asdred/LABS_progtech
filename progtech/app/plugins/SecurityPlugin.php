@@ -52,7 +52,7 @@ class SecurityPlugin extends Plugin
                 'dealer'      => array('index', 'edit', 'save', 'new', 'create', 'delete'),
                 'driver'      => array('index', 'edit', 'save', 'new', 'create', 'delete'),
                 'organization'=> array('index', 'edit', 'save', 'new', 'create', 'delete'),
-                'owner'       => array('index', 'edit', 'save', 'new', 'create', 'delete'),
+                'owner'       => array('index', 'edit', 'save', 'new', 'create', 'delete', 'export', 'exports'),
                 'product'     => array('index', 'edit', 'save', 'new', 'create', 'delete'),
                 'producttype' => array('index', 'edit', 'save', 'new', 'create', 'delete'),
                 'shipment'    => array('index', 'edit', 'save', 'new', 'create', 'delete'),

@@ -12,9 +12,25 @@ class DriverController extends ControllerBase
         parent::initialize();
     }
 
-    public function indexAction($numberPage = 1)
+    public function indexAction($numberPage = 1, $filter = null)
     {   
-        $drivers = Driver::find();
+        $filter = $this->request->getPost("filter");
+        
+        if (!$filter) {
+            $drivers = Driver::find();
+        } elseif ($filter == "maxExp") {
+            $drivers = Driver::mostExp();
+            $this->view->status = "наиболее опытные";
+        } elseif ($filter == "minExp") {
+            $drivers = Driver::leastExp();
+            $this->view->status = "наименее опытные";
+        } elseif ($filter == "maxSal") {
+            $drivers = Driver::mostSalary();
+            $this->view->status = "наиболее оплачиваемые";
+        } elseif ($filter == "minSal") {
+            $drivers = Driver::leastSalary();
+            $this->view->status = "наименее оплачиваемые";
+        }
         
         $paginator = new Paginator(array(
             "data"  => $drivers,

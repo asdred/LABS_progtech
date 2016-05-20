@@ -1,21 +1,31 @@
 <div>
     <div>
-        <h2>Водители</h2>
+        <h2>Водители {{ status }}</h2>
     </div>
     <div>
+        <div style="text-align: left">
+            {{ form("driver/index") }}
+                <input type="radio" name="filter" value="maxExp">Наиболее опытные</inpu><br>
+                <input type="radio" name="filter" value="minExp">Наименее опытные</inpu><br>
+                <input type="radio" name="filter" value="maxSal">Наиболее оплачиваемые</inpu><br>
+                <input type="radio" name="filter" value="minSal">Наименее оплачиваемые</inpu><br>
+                {{ submit_button("Фильтр", "class": "btn btn-primary") }}
+            </form>
+        </div>
         {{ link_to("driver/new", "Создать", "class": "btn btn-primary") }}
     </div>
 </div>
 
 {% for drivers in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" id="table-info" align="center">
     <thead>
         <tr>
             <th class="hidden">id</th>
             <th>И.Фамилия</th>
             <th>Стаж</th>
             <th>Зарплата</th>
+            <th colspan="2"></th>
         </tr>
     </thead>
 {% endif %}

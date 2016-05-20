@@ -14,9 +14,19 @@ class ProductController extends ControllerBase
         parent::initialize();
     }
 
-    public function indexAction($numberPage = 1)
+    public function indexAction($numberPage = 1, $filter = null)
     {
-        $products = Product::find();
+        $filter = $this->request->getPost("filter");
+        
+        if (!$filter) {
+            $products = Product::find();
+        } elseif ($filter == "max") {
+            $products = Product::mostWeight();
+            $this->view->status = "с наибольшим весом";
+        } elseif ($filter == "min") {
+            $products = Product::leastWeight();
+            $this->view->status = "с наименьшим весом";
+        }
         
         // Каскадное обновление
         if ($cascade) {

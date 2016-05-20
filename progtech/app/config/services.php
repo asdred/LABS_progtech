@@ -30,7 +30,7 @@ $di->set('dispatcher', function () use ($di) {
 	/**
 	 * Handle exceptions and not-found exceptions using NotFoundPlugin
 	 */
-	$eventsManager->attach('dispatch:beforeException', new NotFoundPlugin);
+	//$eventsManager->attach('dispatch:beforeException', new NotFoundPlugin);
 
 	$dispatcher = new Dispatcher;
 	$dispatcher->setEventsManager($eventsManager);
@@ -123,4 +123,17 @@ $di->set('flash', function () {
  */
 $di->set('elements', function () {
 	return new Elements();
+});
+
+// excel
+$di->set('phpExcel', function () {
+	return new PHPExcel();
+});
+
+$di->set('xlsxWriter', function () {
+	return new XLSXWriter();
+});
+
+$di->set('myClass', function () {
+	return new MyClass();
 });

@@ -9,11 +9,12 @@
 
 {% for dealers in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" id="table-info" align="center">
     <thead>
         <tr>
             <th class="hidden">id</th>
             <th>Название</th>
+            <th colspan="2"></th>
         </tr>
     </thead>
 {% endif %}

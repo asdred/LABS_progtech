@@ -14,9 +14,25 @@ class TransportController extends ControllerBase
         parent::initialize();
     }
 
-    public function indexAction($numberPage = 1)
+    public function indexAction($numberPage = 1, $interval = null)
     {
-        $transports = Transportation::find();
+        $interval = $this->request->getPost("interval");
+        
+        if (!$interval) {
+            $transports = Transportation::find();
+        } elseif ($interval == "year") {
+            $transports = Transportation::lastYear();
+            $this->view->status = "за последний год";
+        } elseif ($interval == "month") {
+            $transports = Transportation::lastMonth();
+            $this->view->status = "за последний месяц";
+        } elseif ($interval == "week") {
+            $transports = Transportation::lastWeek();
+            $this->view->status = "за последнюю неделю";
+        } elseif ($interval == "day") {
+            $transports = Transportation::lastDay();
+            $this->view->status = "за последний день";
+        }
         
         // Каскадное обновление
         if ($cascade) {

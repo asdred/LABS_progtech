@@ -1,15 +1,23 @@
 <div>
     <div>
-        <h2>Автомобили</h2>
+        <h2>Автомобили {{ status }}</h2>
     </div>
     <div>
+        <div style="text-align: left">
+            {{ form("car/index") }}
+                <input type="radio" name="capacity" value="max">Наиболее грузоподъёмный</inpu><br>
+                <input type="radio" name="capacity" value="min">Наименее грузоподъёмный</inpu><br>
+                {{ submit_button("Фильтр", "class": "btn btn-primary") }}
+            </form>
+        </div>
         {{ link_to("car/new", "Создать", "class": "btn btn-primary") }}
     </div>
 </div>
 
+
 {% for cars in page.items %}
 {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
+<table class="table table-bordered table-striped" id="table-info" align="center">
     <thead>
         <tr>
             <th class="hidden">id</th>
@@ -18,6 +26,7 @@
             <th>Владелец</th>
             <th>Модель</th>
             <th>Грузоподъемность</th>
+            <th colspan="2"></th>
         </tr>
     </thead>
 {% endif %}

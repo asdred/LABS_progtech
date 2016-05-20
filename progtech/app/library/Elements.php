@@ -41,12 +41,13 @@ class Elements extends Component
         'Перевозки' => array(
             'controller' => 'transport',
             'action' => 'index',
-            'any' => false
+            'any' => false,
+            'class' => 'transfer'
         ),
         'Авто' => array(
             'controller' => 'car',
             'action' => 'index',
-            'any' => true
+            'any' => true,
         ),
         'Диллеры' => array(
             'controller' => 'dealer',
@@ -153,7 +154,12 @@ class Elements extends Component
             } else {
                 echo '<li>';
             }
-            echo $this->tag->linkTo($option['controller'] . '/' . $option['action'], $caption), '</li>';
+            if ($option['class']) {
+                echo $this->tag->linkTo($option['controller'] . '/' . $option['action'], $caption . ' <span class="glyphicon glyphicon-' . $option['class'] . '">');
+            } else {
+                echo $this->tag->linkTo($option['controller'] . '/' . $option['action'], $caption);
+            }
+            echo '</li>';
         }
         echo '</ul>';
     }

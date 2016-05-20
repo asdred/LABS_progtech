@@ -35,5 +35,23 @@ class Car extends Model
         // Car.owner_id (много) <-> (один) Owner.id
         $this->belongsTo("owner_id", "Owner", "id");
     }
+    
+    public function mostCapacity()
+    {   
+        $query = $this->modelsManager->createQuery("SELECT * FROM Car WHERE Car.capacity IN (SELECT Max(Car.capacity) FROM Car WHERE del = 0)");
+        
+        $cars  = $query->execute();
+        
+        return $cars;
+    }
+    
+    public function leastCapacity()
+    {
+        $query = $this->modelsManager->createQuery("SELECT * FROM Car WHERE Car.capacity IN (SELECT Min(Car.capacity) FROM Car WHERE del = 0)");
+        
+        $cars  = $query->execute();
+        
+        return $cars;
+    }
 
 }
