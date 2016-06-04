@@ -20,12 +20,8 @@ class Elements extends Component
                 'caption' => 'Перевозки',
                 'action' => 'index'
             ),
-            'about' => array(
-                'caption' => 'О компании',
-                'action' => 'index'
-            ),
-            'contact' => array(
-                'caption' => 'Связаться',
+            'kostyapi' => array(
+                'caption' => 'Партнёр',
                 'action' => 'index'
             ),
         ),
@@ -116,6 +112,7 @@ class Elements extends Component
         } else {
             // Если не авторизован, убрать кнопку 'Перевозки'
             unset($this->_headerMenu['navbar-left']['transport']);
+            unset($this->_headerMenu['navbar-left']['kostyapi']);
         }
         
         // Имя контроллера
