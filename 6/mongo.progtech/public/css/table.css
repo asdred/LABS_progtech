@@ -1,0 +1,47 @@
+.btn-primary {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+#table-info > tbody > tr > td {
+    vertical-align: middle;
+}
+#table-info {
+	background:#eaebec;
+	border:#ccc 1px solid;
+}
+#table-info tr:hover td{
+	background: #f2f2f2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
+}
+.container > div > div > div > h2{
+    margin: 0;     
+    color: #666;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 300px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+
+
+/*
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: yellowgreen;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+    color: lawngreen;
+}
+
+.navbar-inverse .navbar-nav > .active > a:hover {
+    color: yellowgreen;
+}
+*/
