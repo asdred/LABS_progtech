@@ -1,0 +1,78 @@
+body {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+#main_menu {
+    border-radius: 5px;
+    text-align: center;
+    margin: 5% auto;
+    border: 1px solid black;
+    width: 30%;
+}
+
+#menu {
+    border-bottom: 3px solid lightgray;
+}
+
+/* Button Style */
+button.submit {
+    display: inline-block;
+    margin: 1% 3% 1% 3%;
+    background-color: #68b12f;
+    background: -webkit-gradient(linear, left top, left bottom, from(#68b12f), to(#50911e));
+    background: -webkit-linear-gradient(top, #68b12f, #50911e);
+    background: -moz-linear-gradient(top, #68b12f, #50911e);
+    background: -ms-linear-gradient(top, #68b12f, #50911e);
+    background: -o-linear-gradient(top, #68b12f, #50911e);
+    background: linear-gradient(top, #68b12f, #50911e);
+    border: 1px solid #509111;
+    border-bottom: 1px solid #5b992b;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #9fd574;
+    -webkit-box-shadow: 0 1px 0 0 #9fd574 inset ;
+    -moz-box-shadow: 0 1px 0 0 #9fd574 inset;
+    -ms-box-shadow: 0 1px 0 0 #9fd574 inset;
+    -o-box-shadow: 0 1px 0 0 #9fd574 inset;
+    color: white;
+    font-weight: bold;
+    padding: 6px 20px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #396715;
+}
+
+button.submit:hover {
+    opacity:.85;
+    cursor: pointer;
+}
+
+button.submit:active {
+    border: 1px solid #20911e;
+    box-shadow: 0 0 10px 5px #356b0b inset;
+    -webkit-box-shadow:0 0 10px 5px #356b0b inset ;
+    -moz-box-shadow: 0 0 10px 5px #356b0b inset;
+    -ms-box-shadow: 0 0 10px 5px #356b0b inset;
+    -o-box-shadow: 0 0 10px 5px #356b0b inset;
+}
+
+button.submit#index {
+    width: 100px;
+}
+
+nav a:last-child button {
+    margin-bottom: 20px;
+}
+
+/*
+body {
+    background: url("http://wallcars.net/data/media/169/Cayenne%20(14)%201920x1200.jpg") 10px 10px;
+    background-size: cover;
+}
+*/
